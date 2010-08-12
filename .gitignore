@@ -1,0 +1,41 @@
+# ignore thumbnails created by windows
+Thumbs.db
+
+# Visual Studio files
+*_i.c
+*_p.c
+*.aps
+*.bak
+*.cache
+*.docstates
+*.exe
+*.ilk
+*.lib
+*.log
+*.ncb
+*.obj
+*.pch
+*.pdb
+*.sbr
+*.suo
+*.tlb
+*.tlh
+*.user
+*.vspscc
+
+# Visual Studio folders
+[Bb]in/
+[Oo]bj/
+[Dd]ebug*/
+[Rr]elease*/
+[Tt]est[Rr]esult*
+
+# ReSharper
+_[Rr]e[Ss]harper*/
+*.[Rr]e[Ss]harper
+
+# dotCover
+*.[dD]ot[Cc]over
+
+# NUnit GUI
+*.[Vv]isual[Ss]tate.xml
