@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace CodeFragments.MoneyAndCurrency
 {
-    public partial class Currency
+    public partial class Currency : IEquatable<Currency>
     {
         static Currency()
         {
@@ -75,6 +75,54 @@ namespace CodeFragments.MoneyAndCurrency
                 throw new CurrencyNotFoundException(
                     string.Format("Could not find an exact Currency match for: {0}", isoNumberCode), ex);
             }
+        }
+
+        public bool Equals(Currency other)
+        {
+            if (ReferenceEquals(null, other))
+                return false;
+
+            return ReferenceEquals(this, other) || IsEqualTo(other);
+        }
+
+        private bool IsEqualTo(Currency other)
+        {
+            return other.IsoNumberCode == IsoNumberCode
+                   && Equals(other.Iso3LetterCode, Iso3LetterCode)
+                   && Equals(other.Name, Name)
+                   && other.FractionDigits == FractionDigits;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+                return false;
+            if (ReferenceEquals(this, obj))
+                return true;
+
+            return obj.GetType() == typeof(Currency) && Equals((Currency)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = IsoNumberCode;
+                result = (result * 397) ^ Iso3LetterCode.GetHashCode();
+                result = (result * 397) ^ Name.GetHashCode();
+                result = (result * 397) ^ FractionDigits;
+                return result;
+            }
+        }
+
+        public static bool operator ==(Currency left, Currency right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Currency left, Currency right)
+        {
+            return !Equals(left, right);
         }
     }
 }
