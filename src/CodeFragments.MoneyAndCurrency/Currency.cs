@@ -13,12 +13,11 @@ namespace CodeFragments.MoneyAndCurrency
             Currencies = CreateCurrencyList();
         }
        
-        private Currency(string iso3LetterCode, int isoNumberCode, string name, int fractionDigits)
+        private Currency(string iso3LetterCode, int isoNumberCode, string name)
         {
             Iso3LetterCode = iso3LetterCode;
             IsoNumberCode = isoNumberCode;
             Name = name;
-            FractionDigits = fractionDigits;
         }
 
         public int IsoNumberCode { get; private set; }
@@ -26,8 +25,6 @@ namespace CodeFragments.MoneyAndCurrency
         public string Iso3LetterCode { get; private set; }
 
         public string Name { get; private set; }
-
-        public int FractionDigits { get; private set; }
 
         public static IEnumerable<Currency> Currencies { get; private set; }
 
@@ -89,8 +86,7 @@ namespace CodeFragments.MoneyAndCurrency
         {
             return other.IsoNumberCode == IsoNumberCode
                    && Equals(other.Iso3LetterCode, Iso3LetterCode)
-                   && Equals(other.Name, Name)
-                   && other.FractionDigits == FractionDigits;
+                   && Equals(other.Name, Name);
         }
 
         public override bool Equals(object obj)
@@ -110,7 +106,6 @@ namespace CodeFragments.MoneyAndCurrency
                 int result = IsoNumberCode;
                 result = (result * 397) ^ Iso3LetterCode.GetHashCode();
                 result = (result * 397) ^ Name.GetHashCode();
-                result = (result * 397) ^ FractionDigits;
                 return result;
             }
         }

@@ -55,7 +55,7 @@ namespace CodeFragments.MoneyAndCurrency.Tests
         [Test]
         public void Currency_StaticName_MatchesKnownCurrencyName()
         {
-            const string expected = "United States Dollar";
+            const string expected = "US Dollar";
             string actual = Currency.USD.Name;
 
             Assert.That(actual == expected);
