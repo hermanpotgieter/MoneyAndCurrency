@@ -138,5 +138,15 @@ namespace CodeFragments.MoneyAndCurrency
             decimal result = left.Amount % right.Amount;
             return new Money(left.Currency, result);
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0} {1}", Currency.Iso3LetterCode, Amount);
+        }
+
+        public string ToString(string format)
+        {
+            return Amount.ToString(format);
+        }
     }
 }

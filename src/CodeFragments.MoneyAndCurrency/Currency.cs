@@ -12,7 +12,7 @@ namespace CodeFragments.MoneyAndCurrency
         {
             Currencies = CreateCurrencyList();
         }
-       
+
         private Currency(string iso3LetterCode, int isoNumberCode, string name)
         {
             Iso3LetterCode = iso3LetterCode;
@@ -77,7 +77,9 @@ namespace CodeFragments.MoneyAndCurrency
         public bool Equals(Currency other)
         {
             if (ReferenceEquals(null, other))
+            {
                 return false;
+            }
 
             return ReferenceEquals(this, other) || IsEqualTo(other);
         }
@@ -92,11 +94,15 @@ namespace CodeFragments.MoneyAndCurrency
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
+            {
                 return false;
+            }
             if (ReferenceEquals(this, obj))
+            {
                 return true;
+            }
 
-            return obj.GetType() == typeof(Currency) && Equals((Currency)obj);
+            return obj.GetType() == typeof (Currency) && Equals((Currency) obj);
         }
 
         public override int GetHashCode()
@@ -118,6 +124,11 @@ namespace CodeFragments.MoneyAndCurrency
         public static bool operator !=(Currency left, Currency right)
         {
             return !Equals(left, right);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}: {1}", Iso3LetterCode, Name);
         }
     }
 }

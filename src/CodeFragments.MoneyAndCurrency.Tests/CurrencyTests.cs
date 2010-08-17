@@ -126,5 +126,15 @@ namespace CodeFragments.MoneyAndCurrency.Tests
 
             Assert.That(actual == expected);
         }
+
+        [Test]
+        public void ToString_NoArguments_Iso3LetterCodeAndCurrencyName()
+        {
+            const string expected = "ZAR: South African Rand";
+
+            string actual = Currency.ZAR.ToString();
+
+            Assert.That(string.Equals(actual, expected));
+        }
     }
 }
