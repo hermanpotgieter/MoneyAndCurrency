@@ -10,17 +10,17 @@ namespace CodeFragments.MoneyAndCurrency.Tests
     public class CurrencyTests
     {
         [Test]
-        public void Currencies_HasMoreThanZeroElements()
-        {
-            IEnumerable<Currency> currencies = Currency.Currencies;
-            Assert.That(currencies.Count() > 0);
-        }
-
-        [Test]
         public void Currencies_IsNotNull()
         {
             IEnumerable<Currency> currencies = Currency.Currencies;
             Assert.IsNotNull(currencies);
+        }
+
+        [Test]
+        public void Currencies_HasMoreThanZeroElements()
+        {
+            IEnumerable<Currency> currencies = Currency.Currencies;
+            Assert.That(currencies.Count() > 0);
         }
 
         [Test]

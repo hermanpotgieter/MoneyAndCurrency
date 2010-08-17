@@ -4,35 +4,44 @@ namespace CodeFragments.MoneyAndCurrency
 {
     public class Money : IEquatable<Money>
     {
-        protected Money()
-        {
-        }
+        protected Money() {}
 
         public Money(string currencyCode, decimal amount)
+            : this(Currency.FromIso3LetterCode(currencyCode), amount) {}
+
+        public Money(Currency currency, decimal amount)
         {
-            CurrencyCode = currencyCode;
+            Currency = currency;
             Amount = amount;
         }
 
-        public string CurrencyCode { get; private set; }
+        public Currency Currency { get; private set; }
 
         public decimal Amount { get; private set; }
 
         public bool Equals(Money other)
         {
             if (ReferenceEquals(null, other))
+            {
                 return false;
+            }
             if (ReferenceEquals(this, other))
+            {
                 return true;
-            return Equals(other.CurrencyCode, CurrencyCode) && other.Amount == Amount;
+            }
+            return Equals(other.Currency, Currency) && other.Amount == Amount;
         }
 
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
+            {
                 return false;
+            }
             if (ReferenceEquals(this, obj))
+            {
                 return true;
+            }
             return obj.GetType() == typeof (Money) && Equals((Money) obj);
         }
 
@@ -40,7 +49,7 @@ namespace CodeFragments.MoneyAndCurrency
         {
             unchecked
             {
-                return (CurrencyCode.GetHashCode()*397) ^ Amount.GetHashCode();
+                return (Currency.GetHashCode() * 397) ^ Amount.GetHashCode();
             }
         }
 
@@ -52,6 +61,82 @@ namespace CodeFragments.MoneyAndCurrency
         public static bool operator !=(Money left, Money right)
         {
             return !Equals(left, right);
+        }
+
+        private static void GuardAgainstCurrencyMismatch(Money left, Money right)
+        {
+            if (!(left.Currency.Equals(right.Currency)))
+            {
+                throw new InvalidOperationException("Cannot perform arithmetic on Money with different Currency.");
+            }
+        }
+
+        public static bool operator <(Money left, Money right)
+        {
+            GuardAgainstCurrencyMismatch(left, right);
+
+            return left.Amount < right.Amount;
+        }
+
+        public static bool operator >(Money left, Money right)
+        {
+            GuardAgainstCurrencyMismatch(left, right);
+
+            return left.Amount > right.Amount;
+        }
+
+        public static bool operator <=(Money left, Money right)
+        {
+            GuardAgainstCurrencyMismatch(left, right);
+
+            return left.Amount <= right.Amount;
+        }
+
+        public static bool operator >=(Money left, Money right)
+        {
+            GuardAgainstCurrencyMismatch(left, right);
+
+            return left.Amount >= right.Amount;
+        }
+
+        public static Money operator +(Money left, Money right)
+        {
+            GuardAgainstCurrencyMismatch(left, right);
+
+            decimal result = left.Amount + right.Amount;
+            return new Money(left.Currency, result);
+        }
+
+        public static Money operator -(Money left, Money right)
+        {
+            GuardAgainstCurrencyMismatch(left, right);
+
+            decimal result = left.Amount - right.Amount;
+            return new Money(left.Currency, result);
+        }
+
+        public static Money operator *(Money left, Money right)
+        {
+            GuardAgainstCurrencyMismatch(left, right);
+
+            decimal result = left.Amount * right.Amount;
+            return new Money(left.Currency, result);
+        }
+
+        public static Money operator /(Money left, Money right)
+        {
+            GuardAgainstCurrencyMismatch(left, right);
+
+            decimal result = left.Amount / right.Amount;
+            return new Money(left.Currency, result);
+        }
+
+        public static Money operator %(Money left, Money right)
+        {
+            GuardAgainstCurrencyMismatch(left, right);
+
+            decimal result = left.Amount % right.Amount;
+            return new Money(left.Currency, result);
         }
     }
 }
