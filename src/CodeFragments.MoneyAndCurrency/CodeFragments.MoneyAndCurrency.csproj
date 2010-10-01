@@ -36,14 +36,21 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Currency.List.cs" />
-    <Compile Include="Currency.cs" />
-    <Compile Include="CurrencyNotFoundException.cs" />
+    <Compile Include="Currencies\Currency.cs" />
+    <Compile Include="Currencies\Currency.List.cs" />
+    <Compile Include="Currencies\CurrencyNotFoundException.cs" />
     <Compile Include="Money.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoundingStrategies\RoundingDownStrategy.cs" />
+    <Compile Include="RoundingStrategies\RoundingUpStrategy.cs" />
+    <Compile Include="Rounding\RoundingExtensions.cs" />
+    <Compile Include="Rounding\RoundingMode.cs" />
+    <Compile Include="Rounding\RoundingStrategy.cs" />
+    <Compile Include="Rounding\RoundingStrategyFactory.cs" />
+    <Compile Include="TextConverters\NumberToWords.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CurrencyList.xlsx" />
+    <None Include="Currencies\CurrencyList.xlsx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

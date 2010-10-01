@@ -4,22 +4,10 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 
-namespace CodeFragments.MoneyAndCurrency
+namespace CodeFragments.MoneyAndCurrency.Currencies
 {
     public partial class Currency : IEquatable<Currency>
     {
-        static Currency()
-        {
-            Currencies = CreateCurrencyList();
-        }
-
-        private Currency(string iso3LetterCode, int isoNumberCode, string name)
-        {
-            Iso3LetterCode = iso3LetterCode;
-            IsoNumberCode = isoNumberCode;
-            Name = name;
-        }
-
         public int IsoNumberCode { get; private set; }
 
         public string Iso3LetterCode { get; private set; }
@@ -27,6 +15,21 @@ namespace CodeFragments.MoneyAndCurrency
         public string Name { get; private set; }
 
         public static IEnumerable<Currency> Currencies { get; private set; }
+
+        public int DecimalPlaces { get; private set; }
+
+        static Currency()
+        {
+            Currencies = CreateCurrencyList();
+        }
+
+        private Currency(string iso3LetterCode, int isoNumberCode, string name, int decimalPlaces)
+        {
+            Iso3LetterCode = iso3LetterCode;
+            IsoNumberCode = isoNumberCode;
+            Name = name;
+            DecimalPlaces = decimalPlaces;
+        }
 
         public static Currency FromCurrentCulture()
         {

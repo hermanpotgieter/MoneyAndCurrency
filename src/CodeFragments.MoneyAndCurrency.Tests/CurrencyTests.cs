@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+using CodeFragments.MoneyAndCurrency.Currencies;
 using NUnit.Framework;
 
 namespace CodeFragments.MoneyAndCurrency.Tests
@@ -9,6 +10,8 @@ namespace CodeFragments.MoneyAndCurrency.Tests
     [TestFixture]
     public class CurrencyTests
     {
+        #region static Constructor
+
         [Test]
         public void Currencies_IsNotNull()
         {
@@ -60,6 +63,10 @@ namespace CodeFragments.MoneyAndCurrency.Tests
 
             Assert.That(actual == expected);
         }
+
+        #endregion
+
+        #region static Methods
 
         [Test]
         public void FromCulture_CultureName_MatchingCurrency()
@@ -127,6 +134,76 @@ namespace CodeFragments.MoneyAndCurrency.Tests
             Assert.That(actual == expected);
         }
 
+        #endregion
+
+        #region Equality ==
+
+        [Test]
+        public void Equals_SameInstance_True()
+        {
+            Currency currency1 = Currency.ZAR;
+            Currency currency2 = currency1;
+
+            Assert.AreSame(currency1, currency2);
+            Assert.That(currency1 == currency2, Is.True);
+        }
+
+        [Test]
+        public void Equals_SameCurrency_True()
+        {
+            Currency currency1 = Currency.ZAR;
+            Currency currency2 = Currency.ZAR;
+
+            Assert.AreSame(currency1, currency2);
+            Assert.That(currency1 == currency2, Is.True);
+        }
+
+        [Test]
+        public void Equals_DifferentCurrencies_False()
+        {
+            Currency currency1 = Currency.ZAR;
+            Currency currency2 = Currency.USD;
+
+            Assert.AreNotSame(currency1, currency2);
+            Assert.That(currency1 == currency2, Is.False);
+        }
+
+        #endregion
+
+        #region Inequality !=
+
+        [Test]
+        public void NotEquals_SameInstance_False()
+        {
+            Currency currency1 = Currency.ZAR;
+            Currency currency2 = currency1;
+
+            Assert.AreSame(currency1, currency2);
+            Assert.That(currency1 != currency2, Is.False);
+        }
+
+        [Test]
+        public void NotEquals_SameCurrency_False()
+        {
+            Currency currency1 = Currency.ZAR;
+            Currency currency2 = Currency.ZAR;
+
+            Assert.AreSame(currency1, currency2);
+            Assert.That(currency1 != currency2, Is.False);
+        }
+
+        [Test]
+        public void NotEquals_DifferentCurrencies_True()
+        {
+            Currency currency1 = Currency.ZAR;
+            Currency currency2 = Currency.USD;
+
+            Assert.AreNotSame(currency1, currency2);
+            Assert.That(currency1 != currency2, Is.True);
+        }
+
+        #endregion
+
         [Test]
         public void ToString_NoArguments_Iso3LetterCodeAndCurrencyName()
         {
@@ -135,6 +212,7 @@ namespace CodeFragments.MoneyAndCurrency.Tests
             string actual = Currency.ZAR.ToString();
 
             Assert.That(string.Equals(actual, expected));
+
         }
     }
 }

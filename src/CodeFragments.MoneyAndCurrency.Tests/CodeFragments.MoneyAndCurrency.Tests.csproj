@@ -44,7 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CurrencyTests.cs" />
-    <Compile Include="MoneyTests.cs" />
+    <Compile Include="MoneyConstructorTests.cs" />
+    <Compile Include="MoneyEqualityTests.cs" />
+    <Compile Include="MoneyOperatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

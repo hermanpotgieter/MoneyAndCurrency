@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace CodeFragments.MoneyAndCurrency
+namespace CodeFragments.MoneyAndCurrency.Currencies
 {
     [Serializable]
     public class CurrencyNotFoundException : ArgumentException

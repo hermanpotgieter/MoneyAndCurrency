@@ -1,23 +1,43 @@
 ﻿using System;
+using CodeFragments.MoneyAndCurrency.Currencies;
+using CodeFragments.MoneyAndCurrency.Rounding;
 
 namespace CodeFragments.MoneyAndCurrency
 {
     public class Money : IEquatable<Money>
     {
-        protected Money() {}
-
-        public Money(string currencyCode, decimal amount)
-            : this(Currency.FromIso3LetterCode(currencyCode), amount) {}
-
-        public Money(Currency currency, decimal amount)
-        {
-            Currency = currency;
-            Amount = amount;
-        }
-
         public Currency Currency { get; private set; }
 
         public decimal Amount { get; private set; }
+
+        public RoundingMode RoundingMode { get; private set; }
+
+        public int DecimalPlaces { get; private set; }
+
+        protected Money() { }
+
+        public Money(string currencyCode, decimal amount)
+            : this(Currency.FromIso3LetterCode(currencyCode), amount) { }
+
+        public Money(string currencyCode, decimal amount, RoundingMode roundingMode)
+            : this(Currency.FromIso3LetterCode(currencyCode), amount, roundingMode) { }
+
+        public Money(string currencyCode, decimal amount, RoundingMode roundingMode, int decimalplaces)
+            : this(Currency.FromIso3LetterCode(currencyCode), amount, roundingMode, decimalplaces) { }
+
+        public Money(Currency currency, decimal amount)
+            : this(currency, amount, RoundingMode.HalfToEven) { }
+
+        public Money(Currency currency, decimal amount, RoundingMode roundingMode)
+            : this(currency, amount, roundingMode, currency.DecimalPlaces) { }
+
+        public Money(Currency currency, decimal amount, RoundingMode roundingMode, int decimalplaces)
+        {
+            Currency = currency;
+            Amount = amount;
+            RoundingMode = roundingMode;
+            DecimalPlaces = decimalplaces;
+        }
 
         public bool Equals(Money other)
         {
@@ -42,7 +62,7 @@ namespace CodeFragments.MoneyAndCurrency
             {
                 return true;
             }
-            return obj.GetType() == typeof (Money) && Equals((Money) obj);
+            return obj.GetType() == typeof(Money) && Equals((Money)obj);
         }
 
         public override int GetHashCode()
@@ -63,6 +83,7 @@ namespace CodeFragments.MoneyAndCurrency
             return !Equals(left, right);
         }
 
+        // ReSharper disable UnusedParameter.Local
         private static void GuardAgainstCurrencyMismatch(Money left, Money right)
         {
             if (!(left.Currency.Equals(right.Currency)))
@@ -70,6 +91,7 @@ namespace CodeFragments.MoneyAndCurrency
                 throw new InvalidOperationException("Cannot perform arithmetic on Money with different Currency.");
             }
         }
+        // ReSharper restore UnusedParameter.Local
 
         public static bool operator <(Money left, Money right)
         {
@@ -141,12 +163,17 @@ namespace CodeFragments.MoneyAndCurrency
 
         public override string ToString()
         {
-            return string.Format("{0} {1}", Currency.Iso3LetterCode, Amount);
+            return String.Format("{0} {1}", Currency.Iso3LetterCode, Amount);
         }
 
         public string ToString(string format)
         {
             return Amount.ToString(format);
+        }
+
+        public string ToWords()
+        {
+            throw new NotImplementedException();
         }
     }
 }

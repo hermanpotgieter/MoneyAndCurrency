@@ -4,23 +4,9 @@ using NUnit.Framework;
 namespace CodeFragments.MoneyAndCurrency.Tests
 {
     [TestFixture]
-    public class MoneyTests
+    public class MoneyEqualityTests
     {
-        [Test]
-        public void New_CurrencyCodeAndAmount_Money()
-        {
-            Money money = new Money("ZAR", 0);
-            Assert.IsNotNull(money);
-        }
-
-        [Test]
-        public void New_CurrencyTypeAndAmount_Money()
-        {
-            Money money = new Money(Currency.ZAR, 0);
-            Assert.IsNotNull(money);
-        }
-
-        // Equality ==
+        #region Equality ==
 
         [Test]
         public void Equals_SameInstance_True()
@@ -59,8 +45,9 @@ namespace CodeFragments.MoneyAndCurrency.Tests
 
             Assert.That(money1 == money2, Is.False);
         }
+        #endregion
 
-        // Inequality !=
+        #region Inequality !=
 
         [Test]
         public void NotEquals_SameInstance_False()
@@ -100,7 +87,9 @@ namespace CodeFragments.MoneyAndCurrency.Tests
             Assert.That(money1 != money2, Is.True);
         }
 
-        // Less than <
+        #endregion
+
+        #region Less than <
 
         [Test]
         public void LessThan_DifferentCurrencies_ThrowsInvalidOperationException()
@@ -108,7 +97,9 @@ namespace CodeFragments.MoneyAndCurrency.Tests
             Money money1 = new Money("ZAR", 1);
             Money money2 = new Money("USD", 1);
 
-            Assert.Throws<InvalidOperationException>(() => { bool result = money1 < money2; });
+            bool result = false;
+            Assert.IsFalse(result);
+            Assert.Throws<InvalidOperationException>(() => { result = money1 > money2; });
         }
 
         [Test]
@@ -138,7 +129,9 @@ namespace CodeFragments.MoneyAndCurrency.Tests
             Assert.That(left < right, Is.True);
         }
 
-        // Greater than >
+        #endregion
+
+        #region Greater than >
 
         [Test]
         public void GreaterThan_DifferentCurrencies_ThrowsInvalidOperationException()
@@ -146,7 +139,9 @@ namespace CodeFragments.MoneyAndCurrency.Tests
             Money money1 = new Money("ZAR", 1);
             Money money2 = new Money("USD", 1);
 
-            Assert.Throws<InvalidOperationException>(() => { bool result = money1 > money2; });
+            bool result = false;
+            Assert.IsFalse(result);
+            Assert.Throws<InvalidOperationException>(() => { result = money1 > money2; });
         }
 
         [Test]
@@ -176,7 +171,9 @@ namespace CodeFragments.MoneyAndCurrency.Tests
             Assert.That(left > right, Is.True);
         }
 
-        // Less than or equals <=
+        #endregion
+
+        #region Less than or equals <=
 
         [Test]
         public void LessThanOrEquals_DifferentCurrencies_ThrowsInvalidOperationException()
@@ -184,7 +181,9 @@ namespace CodeFragments.MoneyAndCurrency.Tests
             Money money1 = new Money("ZAR", 1);
             Money money2 = new Money("USD", 1);
 
-            Assert.Throws<InvalidOperationException>(() => { bool result = money1 <= money2; });
+            bool result = false;
+            Assert.IsFalse(result);
+            Assert.Throws<InvalidOperationException>(() => { result = money1 <= money2; });
         }
 
         [Test]
@@ -214,7 +213,9 @@ namespace CodeFragments.MoneyAndCurrency.Tests
             Assert.That(left <= right, Is.False);
         }
 
-        // Greater than or equals >=
+        #endregion
+
+        #region Greater than or equals >=
 
         [Test]
         public void GreaterThanOrEquals_DifferentCurrencies_ThrowsInvalidOperationException()
@@ -222,7 +223,9 @@ namespace CodeFragments.MoneyAndCurrency.Tests
             Money money1 = new Money("ZAR", 1);
             Money money2 = new Money("USD", 1);
 
-            Assert.Throws<InvalidOperationException>(() => { bool result = money1 >= money2; });
+            bool result = false;
+            Assert.IsFalse(result);
+            Assert.Throws<InvalidOperationException>(() => { result = money1 >= money2; });
         }
 
         [Test]
@@ -252,119 +255,6 @@ namespace CodeFragments.MoneyAndCurrency.Tests
             Assert.That(left >= right, Is.True);
         }
 
-        // Addition +
-
-        [Test]
-        public void Addition_SameCurrency_SumOfAmounts()
-        {
-            Money money1 = new Money("ZAR", 10.01m);
-            Money money2 = new Money("ZAR", 20.02m);
-            Money expected = new Money("ZAR", 30.03m);
-
-            Money actual = money1 + money2;
-
-            Assert.That(actual == expected);
-        }
-
-        [Test]
-        public void Addition_DifferentCurrencies_ThrowsInvalidOperationException()
-        {
-            Money money1 = new Money("ZAR", 1);
-            Money money2 = new Money("USD", 2);
-
-            Assert.Throws<InvalidOperationException>(() => { Money result = money1 + money2; });
-        }
-
-        // Subtraction -
-
-        [Test]
-        public void Subtraction_SameCurrency_DifferenceOfAmounts()
-        {
-            Money money1 = new Money("ZAR", 30.03m);
-            Money money2 = new Money("ZAR", 20.02m);
-            Money expected = new Money("ZAR", 10.01m);
-
-            Money actual = money1 - money2;
-
-            Assert.That(actual == expected);
-        }
-
-        [Test]
-        public void Subtraction_DifferentCurrencies_ThrowsInvalidOperationException()
-        {
-            Money money1 = new Money("ZAR", 1);
-            Money money2 = new Money("USD", 2);
-
-            Assert.Throws<InvalidOperationException>(() => { Money result = money1 - money2; });
-        }
-
-        // Multiplication *
-
-        [Test]
-        public void Multiplication_SameCurrency_ProductOfAmounts()
-        {
-            Money money1 = new Money("ZAR", 1.1m);
-            Money money2 = new Money("ZAR", 1.1m);
-            Money expected = new Money("ZAR", 1.21m);
-
-            Money actual = money1 * money2;
-
-            Assert.That(actual == expected);
-        }
-
-        [Test]
-        public void Multiplication_DifferentCurrencies_ThrowsInvalidOperationException()
-        {
-            Money money1 = new Money("ZAR", 1);
-            Money money2 = new Money("USD", 2);
-
-            Assert.Throws<InvalidOperationException>(() => { Money result = money1 * money2; });
-        }
-
-        // Division /
-
-        [Test]
-        public void Division_SameCurrency_Quotient()
-        {
-            Money divisor = new Money("ZAR", 6);
-            Money dividend = new Money("ZAR", 3);
-            Money expected = new Money("ZAR", 2);
-
-            Money actual = divisor / dividend;
-
-            Assert.That(actual == expected);
-        }
-
-        [Test]
-        public void Division_DifferentCurrencies_ThrowsInvalidOperationException()
-        {
-            Money money1 = new Money("ZAR", 1);
-            Money money2 = new Money("USD", 2);
-
-            Assert.Throws<InvalidOperationException>(() => { Money result = money1 / money2; });
-        }
-
-        // Modulus %
-
-        [Test]
-        public void Modulus_SameCurrency_Remainder()
-        {
-            Money divisor = new Money("ZAR", 5);
-            Money dividend = new Money("ZAR", 2);
-            Money expected = new Money("ZAR", 1);
-
-            Money actual = divisor % dividend;
-
-            Assert.That(actual == expected);
-        }
-
-        [Test]
-        public void Modulus_DifferentCurrencies_ThrowsInvalidOperationException()
-        {
-            Money money1 = new Money("ZAR", 1);
-            Money money2 = new Money("USD", 2);
-
-            Assert.Throws<InvalidOperationException>(() => { Money result = money1 % money2; });
-        }
+        #endregion
     }
 }
