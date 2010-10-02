@@ -4,8 +4,11 @@ using CodeFragments.MoneyAndCurrency.Rounding;
 
 namespace CodeFragments.MoneyAndCurrency
 {
+    [Serializable]
     public class Money : IEquatable<Money>
     {
+        private const RoundingMode defaultRoundingMode = RoundingMode.HalfToEven;
+
         public Currency Currency { get; private set; }
 
         public decimal Amount { get; private set; }
@@ -14,29 +17,39 @@ namespace CodeFragments.MoneyAndCurrency
 
         public int DecimalPlaces { get; private set; }
 
-        protected Money() { }
+        protected Money() {}
+
+        // constructors using string currencyCode
 
         public Money(string currencyCode, decimal amount)
-            : this(Currency.FromIso3LetterCode(currencyCode), amount) { }
+            : this(Currency.FromIso3LetterCode(currencyCode), amount) {}
 
         public Money(string currencyCode, decimal amount, RoundingMode roundingMode)
-            : this(Currency.FromIso3LetterCode(currencyCode), amount, roundingMode) { }
+            : this(Currency.FromIso3LetterCode(currencyCode), amount, roundingMode) {}
 
-        public Money(string currencyCode, decimal amount, RoundingMode roundingMode, int decimalplaces)
-            : this(Currency.FromIso3LetterCode(currencyCode), amount, roundingMode, decimalplaces) { }
+        public Money(string currencyCode, decimal amount, DecimalPlaces decimalPlaces)
+            : this(Currency.FromIso3LetterCode(currencyCode), amount, decimalPlaces) {}
+
+        public Money(string currencyCode, decimal amount, RoundingMode roundingMode, DecimalPlaces decimalPlaces)
+            : this(Currency.FromIso3LetterCode(currencyCode), amount, roundingMode, decimalPlaces) {}
+
+        // constructors using static Currency
 
         public Money(Currency currency, decimal amount)
-            : this(currency, amount, RoundingMode.HalfToEven) { }
+            : this(currency, amount, defaultRoundingMode) {}
+
+        public Money(Currency currency, decimal amount, DecimalPlaces decimalPlaces)
+            : this(currency, amount, defaultRoundingMode, decimalPlaces) {}
 
         public Money(Currency currency, decimal amount, RoundingMode roundingMode)
-            : this(currency, amount, roundingMode, currency.DecimalPlaces) { }
+            : this(currency, amount, roundingMode, (DecimalPlaces) currency.DecimalPlaces) {}
 
-        public Money(Currency currency, decimal amount, RoundingMode roundingMode, int decimalplaces)
+        public Money(Currency currency, decimal amount, RoundingMode roundingMode, DecimalPlaces decimalPlaces)
         {
             Currency = currency;
             Amount = amount;
             RoundingMode = roundingMode;
-            DecimalPlaces = decimalplaces;
+            DecimalPlaces = (int) decimalPlaces;
         }
 
         public bool Equals(Money other)
@@ -62,7 +75,7 @@ namespace CodeFragments.MoneyAndCurrency
             {
                 return true;
             }
-            return obj.GetType() == typeof(Money) && Equals((Money)obj);
+            return obj.GetType() == typeof (Money) && Equals((Money) obj);
         }
 
         public override int GetHashCode()

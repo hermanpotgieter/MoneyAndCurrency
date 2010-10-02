@@ -9,45 +9,21 @@ namespace CodeFragments.MoneyAndCurrency.Rounding
         {
             switch (roundingMode)
             {
-                case RoundingMode.Down:
-                    {
-                        return new RoundingDownStrategy();
-                    }
-                case RoundingMode.Up:
-                    {
-                        throw new NotImplementedException();
-                    }
-                case RoundingMode.TowardsZero:
-                    {
-                        throw new NotImplementedException();
-                    }
-                case RoundingMode.AwayFromZero:
-                    {
-                        throw new NotImplementedException();
-                    }
-                case RoundingMode.HalfUp:
-                    {
-                        throw new NotImplementedException();
-                    }
-                case RoundingMode.HalfDown:
-                    {
-                        throw new NotImplementedException();
-                    }
                 case RoundingMode.HalfAwayFromZero:
                     {
-                        throw new NotImplementedException();
-                    }
-                case RoundingMode.HalfTowardZero:
-                    {
-                        throw new NotImplementedException();
+                        return new HalfAwayFromZero();
                     }
                 case RoundingMode.HalfToEven:
                     {
-                        throw new NotImplementedException();
+                        return new HalfToEven();
                     }
                 case RoundingMode.HalfToOdd:
                     {
-                        throw new NotImplementedException();
+                        return new HalfToOdd();
+                    }
+                case RoundingMode.HalfTowardZero:
+                    {
+                        return new HalfTowardZero();
                     }
             }
             throw new NotImplementedException();

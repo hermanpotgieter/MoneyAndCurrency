@@ -5,7 +5,7 @@ using System.Threading;
 using CodeFragments.MoneyAndCurrency.Currencies;
 using NUnit.Framework;
 
-namespace CodeFragments.MoneyAndCurrency.Tests
+namespace CodeFragments.MoneyAndCurrency.Tests.CurrencyTests
 {
     [TestFixture]
     public class CurrencyTests

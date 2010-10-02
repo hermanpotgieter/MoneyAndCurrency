@@ -43,11 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CurrencyTests.cs" />
-    <Compile Include="MoneyConstructorTests.cs" />
-    <Compile Include="MoneyEqualityTests.cs" />
-    <Compile Include="MoneyOperatorTests.cs" />
+    <Compile Include="CurrencyTests\CurrencyTests.cs" />
+    <Compile Include="MoneyTests\MoneyConstructorTests.cs" />
+    <Compile Include="MoneyTests\MoneyEqualityTests.cs" />
+    <Compile Include="MoneyTests\MoneyOperatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoundingTestCases\HalfAwayFromZeroTestCases.cs" />
+    <Compile Include="RoundingTestCases\HalfToEvenTestCases.cs" />
+    <Compile Include="RoundingTestCases\HalfToOddTestCases.cs" />
+    <Compile Include="RoundingTestCases\HalfTowardZeroTestCases.cs" />
+    <Compile Include="RoundingTests\RoundingExtensionTests.cs" />
+    <Compile Include="RoundingTests\RoundingStrategyTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CodeFragments.MoneyAndCurrency\CodeFragments.MoneyAndCurrency.csproj">

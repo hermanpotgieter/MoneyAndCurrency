@@ -1,27 +1,21 @@
 ﻿namespace CodeFragments.MoneyAndCurrency.Rounding
 {
+    /// <remarks>
+    ///                      -1.7  -1.5  -1.3  -0.7  -0.5  -0.3   0   0.3  0.5  0.7  1.3  1.5  1.7
+    ///                      ====  ====  ====  ====  ====  ====  ===  ===  ===  ===  ===  ===  ===
+    /// HalfAwayFromZero     -2    -2    -1    -1    -1     0         0    1    1    1    2    2  
+    ///
+    /// HalfTowardZero       -2    -1    -1    -1     0     0         0    0    1    1    1    2
+    /// 
+    /// HalfToEven           -2    -2    -1    -1     0     0         0    0    1    1    2    2
+    ///  
+    /// HalfToOdd            -2    -1    -1    -1     1     0         0    1    1    1    1    2
+    /// </remarks>
     public enum RoundingMode
     {
-        //(or take the floor, or round towards minus infinity): q is the largest integer that does not exceed y. 
-        Down,
-
-        //(or take the ceiling, or round towards plus infinity): q is the smallest integer that is not less than y. 
-        Up,
-
-        //(or truncate, or round away from infinity): q is the integer part of y, without its fraction digits. 
-        TowardsZero,
-
-        //(or round towards infinity): if y is an integer, q is y; else q is the integer that is closest to 0 and is such that y is between 0 and q. 
-        AwayFromZero,
-
-        // tie-breaking
-
-        HalfUp,
-        HalfDown,
         HalfAwayFromZero,
-        HalfTowardZero,
-
         HalfToEven,
-        HalfToOdd
+        HalfToOdd,
+        HalfTowardZero,
     }
 }

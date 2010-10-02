@@ -41,8 +41,11 @@
     <Compile Include="Currencies\CurrencyNotFoundException.cs" />
     <Compile Include="Money.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RoundingStrategies\RoundingDownStrategy.cs" />
-    <Compile Include="RoundingStrategies\RoundingUpStrategy.cs" />
+    <Compile Include="RoundingStrategies\HalfAwayFromZero.cs" />
+    <Compile Include="RoundingStrategies\HalfToEven.cs" />
+    <Compile Include="RoundingStrategies\HalfToOdd.cs" />
+    <Compile Include="RoundingStrategies\HalfTowardZero.cs" />
+    <Compile Include="Rounding\DecimalPlaces.cs" />
     <Compile Include="Rounding\RoundingExtensions.cs" />
     <Compile Include="Rounding\RoundingMode.cs" />
     <Compile Include="Rounding\RoundingStrategy.cs" />
