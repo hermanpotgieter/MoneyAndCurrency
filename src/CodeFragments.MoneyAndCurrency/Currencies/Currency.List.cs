@@ -140,6 +140,7 @@ namespace CodeFragments.MoneyAndCurrency.Currencies
         public static Currency SLL { get; private set; }
         public static Currency SOS { get; private set; }
         public static Currency SRD { get; private set; }
+        public static Currency SSP { get; private set; }
         public static Currency STD { get; private set; }
         public static Currency SVC { get; private set; }
         public static Currency SYP { get; private set; }
@@ -326,6 +327,7 @@ namespace CodeFragments.MoneyAndCurrency.Currencies
                                                 {SLL = new Currency("SLL", 694, "Sierra Leonean Leone", 2)},
                                                 {SOS = new Currency("SOS", 706, "Somali Shilling", 2)},
                                                 {SRD = new Currency("SRD", 968, "Surinamese Dollar", 2)},
+                                                {SSP = new Currency("SSP", 728, "South Sudanese Pound", 2)},
                                                 {STD = new Currency("STD", 678, "São Tomé And Príncipe Dobra", 2)},
                                                 {SVC = new Currency("SVC", 222, "Salvadoran Colón", 2)},
                                                 {SYP = new Currency("SYP", 760, "Syrian Pound", 2)},
